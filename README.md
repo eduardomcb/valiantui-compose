@@ -1,6 +1,23 @@
+<div align="center">
+
 # ValiantUI Compose
 
-Kotlin Multiplatform UI design system and component library built with Compose Multiplatform, targeting Android, Desktop (JVM), Web (Wasm/JS), and iOS.
+**A modern UI design system and component library for Compose Multiplatform, inspired by [HeroUI](https://heroui.com/).**
+
+[![Kotlin](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org/)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose-Multiplatform-4285F4?logo=jetpackcompose&logoColor=white)](https://www.jetbrains.com/compose-multiplatform/)
+
+![Android](https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=android&logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-000000?style=flat-square&logo=apple&logoColor=white)
+![Desktop](https://img.shields.io/badge/Desktop_JVM-007396?style=flat-square&logo=openjdk&logoColor=white)
+![Web Wasm](https://img.shields.io/badge/Web_Wasm-654FF0?style=flat-square&logo=webassembly&logoColor=white)
+
+</div>
+
+> [!NOTE]
+> **Disclaimer:** ValiantUI Compose is an independent, community-driven port of [HeroUI](https://heroui.com/) (formerly NextUI) for Compose Multiplatform. It is not affiliated with, maintained, sponsored, or endorsed by HeroUI Inc. All design concepts and original trademarks belong to their respective owners.
+
+---
 
 ## Modules
 
