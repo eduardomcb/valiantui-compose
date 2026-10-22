@@ -12,6 +12,7 @@ Bem-vindo a documentacao do **ValiantUI Compose**, implementacao do design syste
 ├── components/                 # Modulo central de componentes
 │   ├── button/                 # Button, ButtonGroup
 │   ├── feedback/               # Spinner
+│   ├── separator/              # Separator
 │   ├── input/                  # Input
 │   ├── card/                   # Card
 │   └── overlay/                # Overlay
