@@ -36,24 +36,26 @@ class SeparatorTest {
     @Test
     fun testColorContrastLevelsInLightMode() {
         val lightColors = lightValiantColors()
-        val defaultColor = Color(0x1F11181C)
-        val secondaryColor = lightColors.divider
-        val tertiaryColor = Color(0x4011181C)
+        val defaultColor = lightColors.separator
+        val secondaryColor = lightColors.separatorSecondary
+        val tertiaryColor = lightColors.separatorTertiary
 
         assertNotEquals(defaultColor, secondaryColor)
         assertNotEquals(secondaryColor, tertiaryColor)
         assertEquals(Color(0x2611181C), secondaryColor)
+        assertEquals(lightColors.separatorSecondary, lightColors.divider)
     }
 
     @Test
     fun testColorContrastLevelsInDarkMode() {
         val darkColors = darkValiantColors()
-        val defaultColor = Color(0x1FFFFFFF)
-        val secondaryColor = darkColors.divider
-        val tertiaryColor = Color(0x40FFFFFF)
+        val defaultColor = darkColors.separator
+        val secondaryColor = darkColors.separatorSecondary
+        val tertiaryColor = darkColors.separatorTertiary
 
         assertNotEquals(defaultColor, secondaryColor)
         assertNotEquals(secondaryColor, tertiaryColor)
         assertEquals(Color(0x26FFFFFF), darkColors.divider)
+        assertEquals(darkColors.separatorSecondary, darkColors.divider)
     }
 }

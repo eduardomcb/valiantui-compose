@@ -3,9 +3,13 @@ package io.github.eduardomcb.valiantui.theme
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
+/**
+ * Semantic action and status roles matching HeroUI v3.
+ */
 enum class ValiantColorRole {
     Default,
-    Primary,
+    Accent,
+    Primary,    // Alias to Accent for Compose ergonomics
     Secondary,
     Success,
     Warning,
@@ -18,27 +22,70 @@ data class ValiantColorPair(
     val onColor: Color
 )
 
+/**
+ * HeroUI v3 semantic color system implementation for Compose Multiplatform.
+ *
+ * Organized by architectural role rather than visual abundance:
+ * - Canvas & Base: [background], [backgroundSecondary], [backgroundTertiary], [foreground], [muted]
+ * - Surfaces & Overlays: [surface], [surfaceSecondary], [surfaceTertiary], [overlay], [segment]
+ * - Form Fields: [fieldBackground], [fieldForeground], [fieldPlaceholder], [fieldBorder]
+ * - Action Roles: [default], [accent], [secondary], [success], [warning], [danger]
+ * - Boundaries: [separator], [separatorSecondary], [separatorTertiary], [border]
+ * - Utilities: [focus], [backdrop]
+ */
 @Immutable
 data class ValiantColors(
     val isDark: Boolean,
+
+    // Base Canvas
     val background: Color,
+    val backgroundSecondary: Color,
+    val backgroundTertiary: Color,
     val foreground: Color,
-    val content1: Color,
-    val content2: Color,
-    val content3: Color,
-    val content4: Color,
-    val divider: Color,
+    val muted: Color,
+
+    // Surfaces & Overlays (Cards, Modals, Menus, Panels)
+    val surface: Color,
+    val surfaceSecondary: Color,
+    val surfaceTertiary: Color,
+    val overlay: Color,
+    val segment: Color,
+
+    // Form Fields (Inputs, TextAreas, Selects)
+    val fieldBackground: Color,
+    val fieldForeground: Color,
+    val fieldPlaceholder: Color,
+    val fieldBorder: Color,
+
+    // Action Roles
     val default: ValiantColorPair,
-    val primary: ValiantColorPair,
+    val accent: ValiantColorPair,
     val secondary: ValiantColorPair,
     val success: ValiantColorPair,
     val warning: ValiantColorPair,
     val danger: ValiantColorPair,
-    val focus: Color
+
+    // Boundaries & Dividers
+    val separator: Color,
+    val separatorSecondary: Color,
+    val separatorTertiary: Color,
+    val border: Color,
+
+    // Feedback & Utility
+    val focus: Color,
+    val backdrop: Color
 ) {
+    // Backwards-compatibility and Compose-ergonomic aliases
+    val primary: ValiantColorPair get() = accent
+    val divider: Color get() = separatorSecondary
+    val content1: Color get() = surface
+    val content2: Color get() = surfaceSecondary
+    val content3: Color get() = surfaceTertiary
+    val content4: Color get() = surfaceTertiary
+
     fun forRole(role: ValiantColorRole): ValiantColorPair = when (role) {
         ValiantColorRole.Default -> default
-        ValiantColorRole.Primary -> primary
+        ValiantColorRole.Accent, ValiantColorRole.Primary -> accent
         ValiantColorRole.Secondary -> secondary
         ValiantColorRole.Success -> success
         ValiantColorRole.Warning -> warning
@@ -47,18 +94,28 @@ data class ValiantColors(
 }
 
 fun lightValiantColors(
-    background: Color = Color(0xFFFFFFFF),
+    background: Color = Color(0xFFFAFAFA),
+    backgroundSecondary: Color = Color(0xFFF4F4F5),
+    backgroundTertiary: Color = Color(0xFFE4E4E7),
     foreground: Color = Color(0xFF11181C),
-    content1: Color = Color(0xFFFFFFFF),
-    content2: Color = Color(0xFFF4F4F5),
-    content3: Color = Color(0xFFE4E4E7),
-    content4: Color = Color(0xFFD4D4D8),
-    divider: Color = Color(0x2611181C),
+    muted: Color = Color(0xFF71717A),
+
+    surface: Color = Color(0xFFFFFFFF),
+    surfaceSecondary: Color = Color(0xFFF4F4F5),
+    surfaceTertiary: Color = Color(0xFFE4E4E7),
+    overlay: Color = Color(0xFFFFFFFF),
+    segment: Color = Color(0xFFFFFFFF),
+
+    fieldBackground: Color = Color(0xFFFFFFFF),
+    fieldForeground: Color = Color(0xFF11181C),
+    fieldPlaceholder: Color = Color(0xFF71717A),
+    fieldBorder: Color = Color(0x2611181C),
+
     default: ValiantColorPair = ValiantColorPair(
         color = Color(0xFFE4E4E7),
         onColor = Color(0xFF11181C)
     ),
-    primary: ValiantColorPair = ValiantColorPair(
+    accent: ValiantColorPair = ValiantColorPair(
         color = Color(0xFF006FEE),
         onColor = Color(0xFFFFFFFF)
     ),
@@ -78,38 +135,67 @@ fun lightValiantColors(
         color = Color(0xFFF31260),
         onColor = Color(0xFFFFFFFF)
     ),
-    focus: Color = Color(0xFF006FEE)
+
+    separator: Color = Color(0x1F11181C),
+    separatorSecondary: Color = Color(0x2611181C),
+    separatorTertiary: Color = Color(0x4011181C),
+    border: Color = Color(0x2611181C),
+
+    focus: Color = Color(0xFF006FEE),
+    backdrop: Color = Color(0x80000000)
 ): ValiantColors = ValiantColors(
     isDark = false,
     background = background,
+    backgroundSecondary = backgroundSecondary,
+    backgroundTertiary = backgroundTertiary,
     foreground = foreground,
-    content1 = content1,
-    content2 = content2,
-    content3 = content3,
-    content4 = content4,
-    divider = divider,
+    muted = muted,
+    surface = surface,
+    surfaceSecondary = surfaceSecondary,
+    surfaceTertiary = surfaceTertiary,
+    overlay = overlay,
+    segment = segment,
+    fieldBackground = fieldBackground,
+    fieldForeground = fieldForeground,
+    fieldPlaceholder = fieldPlaceholder,
+    fieldBorder = fieldBorder,
     default = default,
-    primary = primary,
+    accent = accent,
     secondary = secondary,
     success = success,
     warning = warning,
     danger = danger,
-    focus = focus
+    separator = separator,
+    separatorSecondary = separatorSecondary,
+    separatorTertiary = separatorTertiary,
+    border = border,
+    focus = focus,
+    backdrop = backdrop
 )
 
 fun darkValiantColors(
     background: Color = Color(0xFF000000),
+    backgroundSecondary: Color = Color(0xFF18181B),
+    backgroundTertiary: Color = Color(0xFF27272A),
     foreground: Color = Color(0xFFECEDEE),
-    content1: Color = Color(0xFF18181B),
-    content2: Color = Color(0xFF27272A),
-    content3: Color = Color(0xFF3F3F46),
-    content4: Color = Color(0xFF52525B),
-    divider: Color = Color(0x26FFFFFF),
+    muted: Color = Color(0xFFA1A1AA),
+
+    surface: Color = Color(0xFF18181B),
+    surfaceSecondary: Color = Color(0xFF27272A),
+    surfaceTertiary: Color = Color(0xFF3F3F46),
+    overlay: Color = Color(0xFF1F1F23),
+    segment: Color = Color(0xFF3F3F46),
+
+    fieldBackground: Color = Color(0xFF27272A),
+    fieldForeground: Color = Color(0xFFECEDEE),
+    fieldPlaceholder: Color = Color(0xFFA1A1AA),
+    fieldBorder: Color = Color(0x26FFFFFF),
+
     default: ValiantColorPair = ValiantColorPair(
         color = Color(0xFF27272A),
         onColor = Color(0xFFECEDEE)
     ),
-    primary: ValiantColorPair = ValiantColorPair(
+    accent: ValiantColorPair = ValiantColorPair(
         color = Color(0xFF006FEE),
         onColor = Color(0xFFFFFFFF)
     ),
@@ -129,21 +215,40 @@ fun darkValiantColors(
         color = Color(0xFFF31260),
         onColor = Color(0xFFFFFFFF)
     ),
-    focus: Color = Color(0xFF006FEE)
+
+    separator: Color = Color(0x1FFFFFFF),
+    separatorSecondary: Color = Color(0x26FFFFFF),
+    separatorTertiary: Color = Color(0x40FFFFFF),
+    border: Color = Color(0x26FFFFFF),
+
+    focus: Color = Color(0xFF006FEE),
+    backdrop: Color = Color(0x99000000)
 ): ValiantColors = ValiantColors(
     isDark = true,
     background = background,
+    backgroundSecondary = backgroundSecondary,
+    backgroundTertiary = backgroundTertiary,
     foreground = foreground,
-    content1 = content1,
-    content2 = content2,
-    content3 = content3,
-    content4 = content4,
-    divider = divider,
+    muted = muted,
+    surface = surface,
+    surfaceSecondary = surfaceSecondary,
+    surfaceTertiary = surfaceTertiary,
+    overlay = overlay,
+    segment = segment,
+    fieldBackground = fieldBackground,
+    fieldForeground = fieldForeground,
+    fieldPlaceholder = fieldPlaceholder,
+    fieldBorder = fieldBorder,
     default = default,
-    primary = primary,
+    accent = accent,
     secondary = secondary,
     success = success,
     warning = warning,
     danger = danger,
-    focus = focus
+    separator = separator,
+    separatorSecondary = separatorSecondary,
+    separatorTertiary = separatorTertiary,
+    border = border,
+    focus = focus,
+    backdrop = backdrop
 )

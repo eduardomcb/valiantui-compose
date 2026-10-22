@@ -27,10 +27,12 @@ class MultiplatformLibraryConventionPlugin : Plugin<Project> {
 
             js {
                 browser()
+                binaries.executable()
             }
 
             wasmJs {
                 browser()
+                binaries.executable()
             }
 
             listOf(

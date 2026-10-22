@@ -58,9 +58,18 @@ class ButtonTest {
 
         assertTrue(dark.isDark)
         assertEquals(Color(0xFF000000), dark.background)
-        assertEquals(Color(0xFFFFFFFF), light.background)
+        assertEquals(Color(0xFFFAFAFA), light.background)
 
         assertEquals(light.primary, light.forRole(ValiantColorRole.Primary))
+        assertEquals(light.accent, light.forRole(ValiantColorRole.Accent))
         assertEquals(dark.danger, dark.forRole(ValiantColorRole.Danger))
+
+        // HeroUI v3 Tokens
+        assertEquals(light.accent, light.primary)
+        assertEquals(light.surface, light.content1)
+        assertEquals(Color(0xFFFFFFFF), light.surface)
+        assertEquals(Color(0xFF18181B), dark.surface)
+        assertEquals(Color(0xFFFFFFFF), light.fieldBackground)
+        assertEquals(Color(0xFF27272A), dark.fieldBackground)
     }
 }

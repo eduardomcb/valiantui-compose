@@ -54,9 +54,9 @@ object SeparatorDefaults {
     fun colorFor(variant: SeparatorVariant): Color {
         val colors = ValiantTheme.colors
         return when (variant) {
-            SeparatorVariant.Default -> if (colors.isDark) Color(0x1FFFFFFF) else Color(0x1F11181C)
-            SeparatorVariant.Secondary -> colors.divider
-            SeparatorVariant.Tertiary -> if (colors.isDark) Color(0x40FFFFFF) else Color(0x4011181C)
+            SeparatorVariant.Default -> colors.separator
+            SeparatorVariant.Secondary -> colors.separatorSecondary
+            SeparatorVariant.Tertiary -> colors.separatorTertiary
         }
     }
 }
