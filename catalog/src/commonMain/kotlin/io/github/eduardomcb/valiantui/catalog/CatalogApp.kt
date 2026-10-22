@@ -33,6 +33,9 @@ import io.github.eduardomcb.valiantui.components.button.ButtonGroup
 import io.github.eduardomcb.valiantui.components.button.ButtonGroupPosition
 import io.github.eduardomcb.valiantui.components.button.ButtonSize
 import io.github.eduardomcb.valiantui.components.button.ButtonVariant
+import io.github.eduardomcb.valiantui.components.separator.Separator
+import io.github.eduardomcb.valiantui.components.separator.SeparatorOrientation
+import io.github.eduardomcb.valiantui.components.separator.SeparatorVariant
 import io.github.eduardomcb.valiantui.theme.ValiantColorRole
 import io.github.eduardomcb.valiantui.theme.ValiantRadius
 import io.github.eduardomcb.valiantui.theme.ValiantTheme
@@ -332,6 +335,93 @@ fun CatalogApp() {
                         }
                         Button(onClick = {}, position = ButtonGroupPosition.Last) {
                             Text("Right")
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            CatalogSection("Separator") {
+                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                    Text(
+                        text = "Horizontal Variants (Default, Secondary, Tertiary):",
+                        style = ValiantTheme.typography.tiny,
+                        color = animatedFg.copy(alpha = 0.6f)
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(colors.content2)
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Text("Default Variant (subtle contrast)", style = ValiantTheme.typography.small)
+                        Separator(variant = SeparatorVariant.Default)
+
+                        Text("Secondary Variant (medium contrast)", style = ValiantTheme.typography.small)
+                        Separator(variant = SeparatorVariant.Secondary)
+
+                        Text("Tertiary Variant (strongest contrast)", style = ValiantTheme.typography.small)
+                        Separator(variant = SeparatorVariant.Tertiary)
+                    }
+
+                    Text(
+                        text = "Vertical Orientation (Toolbar / Links):",
+                        style = ValiantTheme.typography.tiny,
+                        color = animatedFg.copy(alpha = 0.6f)
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .height(24.dp)
+                            .padding(horizontal = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("Blog", style = ValiantTheme.typography.small)
+                        Separator(orientation = SeparatorOrientation.Vertical)
+                        Text("Docs", style = ValiantTheme.typography.small)
+                        Separator(orientation = SeparatorOrientation.Vertical)
+                        Text("Source", style = ValiantTheme.typography.small)
+                        Separator(orientation = SeparatorOrientation.Vertical)
+                        Text("GitHub", style = ValiantTheme.typography.small)
+                    }
+
+                    Text(
+                        text = "With Centered Label (e.g. Auth divider):",
+                        style = ValiantTheme.typography.tiny,
+                        color = animatedFg.copy(alpha = 0.6f)
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(colors.content2)
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Button(
+                            onClick = {},
+                            variant = ButtonVariant.Flat,
+                            color = ValiantColorRole.Primary,
+                            fullWidth = true
+                        ) {
+                            Text("Continue with Google")
+                        }
+
+                        Separator(text = "OR", variant = SeparatorVariant.Secondary)
+
+                        Button(
+                            onClick = {},
+                            variant = ButtonVariant.Bordered,
+                            color = ValiantColorRole.Default,
+                            fullWidth = true
+                        ) {
+                            Text("Continue with Email")
                         }
                     }
                 }
