@@ -42,8 +42,10 @@ class SeparatorTest {
 
         assertNotEquals(defaultColor, secondaryColor)
         assertNotEquals(secondaryColor, tertiaryColor)
-        assertEquals(Color(0x2611181C), secondaryColor)
-        assertEquals(lightColors.separatorSecondary, lightColors.divider)
+        assertEquals(Color(0xFFE4E4E7), defaultColor)
+        assertEquals(Color(0xFFDCDCE0), secondaryColor)
+        assertEquals(Color(0xFFD4D4D8), tertiaryColor)
+        assertEquals(lightColors.separator, lightColors.divider)
     }
 
     @Test
@@ -55,7 +57,9 @@ class SeparatorTest {
 
         assertNotEquals(defaultColor, secondaryColor)
         assertNotEquals(secondaryColor, tertiaryColor)
-        assertEquals(Color(0x26FFFFFF), darkColors.divider)
-        assertEquals(darkColors.separatorSecondary, darkColors.divider)
+        assertEquals(Color(0xFF212124), defaultColor)
+        assertEquals(Color(0xFF333336), secondaryColor)
+        assertEquals(Color(0xFF404044), tertiaryColor)
+        assertEquals(darkColors.separator, darkColors.divider)
     }
 }

@@ -44,21 +44,21 @@ class ButtonTest {
         val light = lightValiantColors()
         val dark = darkValiantColors()
 
-        assertEquals(Color(0xFF006FEE), light.primary.color)
-        assertEquals(Color(0xFF006FEE), dark.primary.color)
+        assertEquals(Color(0xFF0485F7), light.primary.color)
+        assertEquals(Color(0xFF0485F7), dark.primary.color)
 
-        assertEquals(Color(0xFFF31260), light.danger.color)
-        assertEquals(Color(0xFFF31260), dark.danger.color)
+        assertEquals(Color(0xFFFF383C), light.danger.color)
+        assertEquals(Color(0xFFDB3B3E), dark.danger.color)
 
         assertEquals(Color(0xFF17C964), light.success.color)
         assertEquals(Color(0xFF17C964), dark.success.color)
 
         assertEquals(Color(0xFFF5A524), light.warning.color)
-        assertEquals(Color(0xFFF5A524), dark.warning.color)
+        assertEquals(Color(0xFFF7B750), dark.warning.color)
 
         assertTrue(dark.isDark)
-        assertEquals(Color(0xFF000000), dark.background)
-        assertEquals(Color(0xFFFAFAFA), light.background)
+        assertEquals(Color(0xFF060607), dark.background)
+        assertEquals(Color(0xFFF5F5F5), light.background)
 
         assertEquals(light.primary, light.forRole(ValiantColorRole.Primary))
         assertEquals(light.accent, light.forRole(ValiantColorRole.Accent))
@@ -70,6 +70,6 @@ class ButtonTest {
         assertEquals(Color(0xFFFFFFFF), light.surface)
         assertEquals(Color(0xFF18181B), dark.surface)
         assertEquals(Color(0xFFFFFFFF), light.fieldBackground)
-        assertEquals(Color(0xFF27272A), dark.fieldBackground)
+        assertEquals(Color(0xFF18181B), dark.fieldBackground)
     }
 }
