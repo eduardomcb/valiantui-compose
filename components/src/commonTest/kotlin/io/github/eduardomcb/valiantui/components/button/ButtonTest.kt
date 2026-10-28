@@ -1,75 +1,183 @@
 package io.github.eduardomcb.valiantui.components.button
 
-import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertHeightIsEqualTo
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertWidthIsEqualTo
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.v2.runComposeUiTest
 import androidx.compose.ui.unit.dp
-import io.github.eduardomcb.valiantui.theme.ValiantColorRole
-import io.github.eduardomcb.valiantui.theme.ValiantRadius
-import io.github.eduardomcb.valiantui.theme.darkValiantColors
-import io.github.eduardomcb.valiantui.theme.lightValiantColors
+import io.github.eduardomcb.valiantui.theme.ValiantTheme
 import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
+@OptIn(ExperimentalTestApi::class)
 class ButtonTest {
 
     @Test
-    fun testRadiusTokenValues() {
-        assertEquals(0.dp, ValiantRadius.None.dp)
-        assertEquals(8.dp, ValiantRadius.Sm.dp)
-        assertEquals(12.dp, ValiantRadius.Md.dp)
-        assertEquals(14.dp, ValiantRadius.Lg.dp)
-        assertEquals(9999.dp, ValiantRadius.Full.dp)
+    fun button_whenEnabled_clickTriggersCallback() = runComposeUiTest {
+        var clicked = false
+
+        setContent {
+            ValiantTheme {
+                Button(onClick = { clicked = true }) {
+                    Text("Save")
+                }
+            }
+        }
+
+        onNodeWithText("Save").performClick()
+        assertTrue(clicked, "Expected onClick to be called when button is enabled")
     }
 
     @Test
-    fun testButtonSizes() {
-        assertEquals(32.dp, ButtonSize.Sm.height)
-        assertEquals(64.dp, ButtonSize.Sm.minWidth)
-        assertEquals(12.dp, ButtonSize.Sm.horizontalPadding)
-        assertEquals(8.dp, ButtonSize.Sm.gap)
+    fun button_whenDisabled_doesNotTriggerCallback() = runComposeUiTest {
+        var clicked = false
 
-        assertEquals(40.dp, ButtonSize.Md.height)
-        assertEquals(80.dp, ButtonSize.Md.minWidth)
-        assertEquals(16.dp, ButtonSize.Md.horizontalPadding)
-        assertEquals(8.dp, ButtonSize.Md.gap)
+        setContent {
+            ValiantTheme {
+                Button(
+                    onClick = { clicked = true },
+                    isDisabled = true
+                ) {
+                    Text("Disabled Action")
+                }
+            }
+        }
 
-        assertEquals(48.dp, ButtonSize.Lg.height)
-        assertEquals(96.dp, ButtonSize.Lg.minWidth)
-        assertEquals(24.dp, ButtonSize.Lg.horizontalPadding)
-        assertEquals(12.dp, ButtonSize.Lg.gap)
+        val buttonNode = onNodeWithText("Disabled Action")
+        buttonNode.assertIsNotEnabled()
+        buttonNode.performClick()
+
+        assertFalse(clicked, "Expected onClick NOT to be called when button is disabled")
     }
 
     @Test
-    fun testSemanticColorsLightAndDark() {
-        val light = lightValiantColors()
-        val dark = darkValiantColors()
+    fun button_whenLoading_doesNotTriggerCallback() = runComposeUiTest {
+        var clicked = false
 
-        assertEquals(Color(0xFF0485F7), light.primary.color)
-        assertEquals(Color(0xFF0485F7), dark.primary.color)
+        setContent {
+            ValiantTheme {
+                Button(
+                    onClick = { clicked = true },
+                    isLoading = true
+                ) {
+                    Text("Submitting")
+                }
+            }
+        }
 
-        assertEquals(Color(0xFFFF383C), light.danger.color)
-        assertEquals(Color(0xFFDB3B3E), dark.danger.color)
+        onNodeWithText("Submitting").performClick()
+        assertFalse(clicked, "Expected onClick NOT to be called when button is loading")
+    }
 
-        assertEquals(Color(0xFF17C964), light.success.color)
-        assertEquals(Color(0xFF17C964), dark.success.color)
+    @Test
+    fun button_whenLoading_hidesStartAndEndContent() = runComposeUiTest {
+        setContent {
+            ValiantTheme {
+                Button(
+                    onClick = {},
+                    isLoading = true,
+                    startContent = { Text("StartIcon") },
+                    endContent = { Text("EndIcon") }
+                ) {
+                    Text("Loading Button")
+                }
+            }
+        }
 
-        assertEquals(Color(0xFFF5A524), light.warning.color)
-        assertEquals(Color(0xFFF7B750), dark.warning.color)
+        onNodeWithText("Loading Button").assertIsDisplayed()
+        onNodeWithText("StartIcon").assertDoesNotExist()
+        onNodeWithText("EndIcon").assertDoesNotExist()
+    }
 
-        assertTrue(dark.isDark)
-        assertEquals(Color(0xFF060607), dark.background)
-        assertEquals(Color(0xFFF5F5F5), light.background)
+    @Test
+    fun button_whenNotLoading_rendersStartAndEndContent() = runComposeUiTest {
+        setContent {
+            ValiantTheme {
+                Button(
+                    onClick = {},
+                    isLoading = false,
+                    startContent = { Text("StartIcon") },
+                    endContent = { Text("EndIcon") }
+                ) {
+                    Text("Button Content")
+                }
+            }
+        }
 
-        assertEquals(light.primary, light.forRole(ValiantColorRole.Primary))
-        assertEquals(light.accent, light.forRole(ValiantColorRole.Accent))
-        assertEquals(dark.danger, dark.forRole(ValiantColorRole.Danger))
+        onNodeWithText("StartIcon").assertIsDisplayed()
+        onNodeWithText("Button Content").assertIsDisplayed()
+        onNodeWithText("EndIcon").assertIsDisplayed()
+    }
 
-        // HeroUI v3 Tokens
-        assertEquals(light.accent, light.primary)
-        assertEquals(light.surface, light.content1)
-        assertEquals(Color(0xFFFFFFFF), light.surface)
-        assertEquals(Color(0xFF18181B), dark.surface)
-        assertEquals(Color(0xFFFFFFFF), light.fieldBackground)
-        assertEquals(Color(0xFF18181B), dark.fieldBackground)
+    @Test
+    fun button_exposesButtonSemanticsRole() = runComposeUiTest {
+        setContent {
+            ValiantTheme {
+                Button(onClick = {}) {
+                    Text("Accessible Button")
+                }
+            }
+        }
+
+        onNodeWithText("Accessible Button")
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Button))
+    }
+
+    @Test
+    fun button_fullWidth_stretchesToContainerWidth() = runComposeUiTest {
+        val containerWidth = 320.dp
+
+        setContent {
+            ValiantTheme {
+                Box(modifier = Modifier.width(containerWidth)) {
+                    Button(
+                        onClick = {},
+                        fullWidth = true,
+                        modifier = Modifier.testTag("full_width_button")
+                    ) {
+                        Text("Full Width")
+                    }
+                }
+            }
+        }
+
+        onNodeWithTag("full_width_button").assertWidthIsEqualTo(containerWidth)
+    }
+
+    @Test
+    fun button_isIconOnly_rendersSquareDimensions() = runComposeUiTest {
+        val size = ButtonSize.Md
+
+        setContent {
+            ValiantTheme {
+                Button(
+                    onClick = {},
+                    size = size,
+                    isIconOnly = true,
+                    modifier = Modifier.testTag("icon_only_button")
+                ) {
+                    Text("+")
+                }
+            }
+        }
+
+        onNodeWithTag("icon_only_button")
+            .assertWidthIsEqualTo(size.height)
+            .assertHeightIsEqualTo(size.height)
     }
 }

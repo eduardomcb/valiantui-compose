@@ -6,9 +6,11 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.compose.ComposeExtension
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class ComposeLibraryConventionPlugin : Plugin<Project> {
+    @OptIn(ExperimentalComposeLibrary::class)
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
@@ -31,6 +33,13 @@ class ComposeLibraryConventionPlugin : Plugin<Project> {
             sourceSets.named("commonTest").configure {
                 dependencies {
                     implementation(libs.findLibrary("kotlin-test").get())
+                    implementation(compose.uiTest)
+                }
+            }
+
+            sourceSets.matching { it.name == "jvmTest" }.configureEach {
+                dependencies {
+                    implementation(compose.desktop.currentOs)
                 }
             }
         }
