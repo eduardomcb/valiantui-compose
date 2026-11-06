@@ -8,7 +8,7 @@ The `Spinner` component provides continuous visual feedback during background lo
 
 <iframe 
     title="Spinner Sizes Preview" 
-    src="../../compose/index.html?component=spinner&example=sizes" 
+    src="../compose/index.html?component=spinner&example=sizes" 
     style="width: 100%; height: 140px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -29,7 +29,7 @@ Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
 
 <iframe 
     title="Spinner Colors Preview" 
-    src="../../compose/index.html?component=spinner&example=colors" 
+    src="../compose/index.html?component=spinner&example=colors" 
     style="width: 100%; height: 140px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>

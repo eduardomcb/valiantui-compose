@@ -8,7 +8,7 @@
 
 <iframe 
     title="ButtonGroup Default Preview" 
-    src="../../compose/index.html?component=button-group&example=default" 
+    src="../compose/index.html?component=button-group&example=default" 
     style="width: 100%; height: 150px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -33,7 +33,7 @@ ButtonGroup(
 
 <iframe 
     title="ButtonGroup Variants Preview" 
-    src="../../compose/index.html?component=button-group&example=variants" 
+    src="../compose/index.html?component=button-group&example=variants" 
     style="width: 100%; height: 210px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -68,7 +68,7 @@ ButtonGroup(
 
 <iframe 
     title="ButtonGroup Sizes Preview" 
-    src="../../compose/index.html?component=button-group&example=sizes" 
+    src="../compose/index.html?component=button-group&example=sizes" 
     style="width: 100%; height: 250px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>

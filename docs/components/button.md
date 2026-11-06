@@ -8,7 +8,7 @@ Buttons trigger actions or events on the user interface. ValiantUI buttons suppo
 
 <iframe 
     title="Button Default Preview" 
-    src="../../compose/index.html?component=button&example=default" 
+    src="../compose/index.html?component=button&example=default" 
     style="width: 100%; height: 150px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -30,7 +30,7 @@ Button(
 
 <iframe 
     title="Button Disabled Preview" 
-    src="../../compose/index.html?component=button&example=disabled" 
+    src="../compose/index.html?component=button&example=disabled" 
     style="width: 100%; height: 150px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -51,7 +51,7 @@ Button(
 
 <iframe 
     title="Button Sizes Preview" 
-    src="../../compose/index.html?component=button&example=sizes" 
+    src="../compose/index.html?component=button&example=sizes" 
     style="width: 100%; height: 160px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -68,7 +68,7 @@ Button(onClick = {}, size = ButtonSize.Lg) { Text("Large") }
 
 <iframe 
     title="Button Colors Preview" 
-    src="../../compose/index.html?component=button&example=colors" 
+    src="../compose/index.html?component=button&example=colors" 
     style="width: 100%; height: 180px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -87,7 +87,7 @@ ValiantColorRole.entries.forEach { role ->
 
 <iframe 
     title="Button Variants Preview" 
-    src="../../compose/index.html?component=button&example=variants" 
+    src="../compose/index.html?component=button&example=variants" 
     style="width: 100%; height: 180px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -110,7 +110,7 @@ ButtonVariant.entries.forEach { variant ->
 
 <iframe 
     title="Button Loading Preview" 
-    src="../../compose/index.html?component=button&example=loading" 
+    src="../compose/index.html?component=button&example=loading" 
     style="width: 100%; height: 150px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -131,7 +131,7 @@ Button(
 
 <iframe 
     title="Button Icons Preview" 
-    src="../../compose/index.html?component=button&example=icons" 
+    src="../compose/index.html?component=button&example=icons" 
     style="width: 100%; height: 160px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>

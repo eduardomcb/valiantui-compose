@@ -8,7 +8,7 @@ The `Separator` component visually divides sections of content, list items, navi
 
 <iframe 
     title="Separator Default Preview" 
-    src="../../compose/index.html?component=separator&example=default" 
+    src="../compose/index.html?component=separator&example=default" 
     style="width: 100%; height: 160px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -27,7 +27,7 @@ Text("Bottom Content")
 
 <iframe 
     title="Separator Vertical Preview" 
-    src="../../compose/index.html?component=separator&example=vertical" 
+    src="../compose/index.html?component=separator&example=vertical" 
     style="width: 100%; height: 140px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
@@ -52,7 +52,7 @@ Row(
 
 <iframe 
     title="Separator With Label Preview" 
-    src="../../compose/index.html?component=separator&example=with-label" 
+    src="../compose/index.html?component=separator&example=with-label" 
     style="width: 100%; height: 210px; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 12px; background: transparent;" 
     loading="lazy">
 </iframe>
