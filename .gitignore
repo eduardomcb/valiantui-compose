@@ -19,3 +19,8 @@ captures
 node_modules/
 kotlin-js-store/
 .wireit/
+
+# Zensical Documentation
+site/
+.zensical/
+docs/compose/
