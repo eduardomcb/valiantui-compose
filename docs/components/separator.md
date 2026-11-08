@@ -64,7 +64,7 @@ Button(onClick = { }, fullWidth = true) {
 
 Separator(text = "OR", variant = SeparatorVariant.Secondary)
 
-Button(onClick = { }, variant = ButtonVariant.Bordered, color = ValiantColorRole.Default, fullWidth = true) {
+Button(onClick = { }, variant = ButtonVariant.Outline, color = ValiantColorRole.Default, fullWidth = true) {
     Text("Continue with Email")
 }
 ```

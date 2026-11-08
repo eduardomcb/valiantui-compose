@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 256" width="960" height="256" role="img" aria-labelledby="valiant-h-color-title">
+  <title id="valiant-h-color-title">ValiantUI Compose Logo (Horizontal Color)</title>
+  <defs>
+    <linearGradient id="valiant-grad-h" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0485F7" />
+      <stop offset="100%" stop-color="#006fee" />
+    </linearGradient>
+  </defs>
+  <g id="symbol" transform="translate(16, 0)">
+    <path fill="url(#valiant-grad-h)" d="M 68 44 L 96 44 L 128 163 L 160 44 L 188 44 L 212 68 L 128 213 L 44 68 Z" />
+    <path fill="#7828C8" d="M 128 50 L 136 80 L 128 110 L 120 80 Z" />
+  </g>
+  <g id="wordmark" transform="translate(296, 0)">
+    <text x="0" y="148" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="94" font-weight="800" letter-spacing="-1.5" fill="#18181B">Valiant<tspan fill="#0485F7">UI</tspan></text>
+    <text x="6" y="196" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="600" letter-spacing="9" fill="#71717A">COMPOSE</text>
+  </g>
+</svg>

@@ -1,5 +1,14 @@
 <div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="brand/banners/valiantui-banner-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="brand/banners/valiantui-banner-light.png">
+  <img alt="ValiantUI Compose" src="brand/banners/valiantui-banner-dark.png" width="100%" style="max-width: 880px; border-radius: 12px;">
+</picture>
+
+<br />
+<br />
+
 # ValiantUI Compose
 
 **A modern UI design system and component library for Compose Multiplatform, inspired by [HeroUI](https://heroui.com/).**

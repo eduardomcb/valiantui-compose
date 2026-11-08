@@ -116,7 +116,7 @@ fun App() {
     ValiantTheme {
         Button(
             onClick = { println("Clicked") },
-            variant = ButtonVariant.Solid,
+            variant = ButtonVariant.Primary,
             color = ValiantColorRole.Primary
         ) {
             Text("Get Started")

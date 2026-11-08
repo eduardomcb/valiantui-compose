@@ -15,7 +15,7 @@
 
 ```kotlin
 ButtonGroup(
-    variant = ButtonVariant.Solid,
+    variant = ButtonVariant.Primary,
     color = ValiantColorRole.Primary,
     radius = ValiantRadius.Md
 ) {
@@ -39,9 +39,9 @@ ButtonGroup(
 </iframe>
 
 ```kotlin
-// Flat variant with pill radius
+// Secondary variant with pill radius
 ButtonGroup(
-    variant = ButtonVariant.Flat,
+    variant = ButtonVariant.Secondary,
     color = ValiantColorRole.Secondary,
     radius = ValiantRadius.Full
 ) {
@@ -50,9 +50,9 @@ ButtonGroup(
     Button(onClick = {}, position = ButtonGroupPosition.Last) { Text("Right") }
 }
 
-// Bordered variant with collapsed borders
+// Outline variant with collapsed borders
 ButtonGroup(
-    variant = ButtonVariant.Bordered,
+    variant = ButtonVariant.Outline,
     color = ValiantColorRole.Default,
     radius = ValiantRadius.Md
 ) {
@@ -98,10 +98,10 @@ ButtonGroup(size = ButtonSize.Lg, color = ValiantColorRole.Primary) {
 
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `variant` | `ButtonVariant` | `ButtonVariant.Solid` | Default variant inherited by child buttons |
+| `variant` | `ButtonVariant` | `ButtonVariant.Primary` | Default variant inherited by child buttons |
 | `color` | `ValiantColorRole` | `ValiantColorRole.Default` | Default color role inherited by child buttons |
 | `size` | `ButtonSize` | `ButtonSize.Md` | Height and padding inherited by child buttons |
-| `radius` | `ValiantRadius` | `ValiantRadius.Md` | Corner radius applied to the outer edges of the group |
+| `radius` | `ValiantRadius` | `ValiantRadius.Full` | Corner radius applied to the outer edges of the group |
 | `isDisabled` | `Boolean` | `false` | Disables all child buttons in the group |
 | `content` | `@Composable ButtonGroupScope.() -> Unit` | **Required** | Content block where child buttons are declared |
 

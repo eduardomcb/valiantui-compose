@@ -147,7 +147,7 @@ Button(
 
 Button(
     onClick = { },
-    variant = ButtonVariant.Bordered,
+    variant = ButtonVariant.Outline,
     color = ValiantColorRole.Primary,
     endContent = { Text("→") }
 ) {
@@ -171,10 +171,10 @@ Button(
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `onClick` | `() -> Unit` | **Required** | Action triggered when clicked |
-| `variant` | `ButtonVariant` | `Solid` | `Solid`, `Faded`, `Bordered`, `Light`, `Flat`, `Ghost`, `Shadow` |
+| `variant` | `ButtonVariant` | `Primary` | `Primary`, `Secondary`, `Tertiary`, `Outline`, `Ghost`, `Danger`, `DangerSoft` |
 | `color` | `ValiantColorRole` | `Default` | `Default`, `Primary`, `Secondary`, `Success`, `Warning`, `Danger` |
 | `size` | `ButtonSize` | `Md` | `Sm` (32dp), `Md` (40dp), `Lg` (48dp) |
-| `radius` | `ValiantRadius` | `Md` | `None`, `Sm`, `Md`, `Lg`, `Full` |
+| `radius` | `ValiantRadius` | `Full` | `None`, `Sm`, `Md`, `Lg`, `Full` |
 | `isDisabled` | `Boolean` | `false` | Disables interaction and reduces opacity |
 | `isLoading` | `Boolean` | `false` | Displays a rotating Spinner and blocks interaction |
 | `isIconOnly` | `Boolean` | `false` | Adjusts padding for square or circular icon buttons |
