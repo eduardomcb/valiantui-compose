@@ -21,7 +21,7 @@ enum class ButtonGroupPosition {
 
 class ButtonGroupScope internal constructor(
     val groupVariant: ButtonVariant,
-    val groupColor: ValiantColorRole,
+    val groupColor: ValiantColorRole?,
     val groupSize: ButtonSize,
     val groupRadius: ValiantRadius,
     val groupDisabled: Boolean
@@ -32,10 +32,12 @@ class ButtonGroupScope internal constructor(
         position: ButtonGroupPosition,
         modifier: Modifier = Modifier,
         variant: ButtonVariant = groupVariant,
-        color: ValiantColorRole = groupColor,
+        color: ValiantColorRole? = groupColor,
         size: ButtonSize = groupSize,
         radius: ValiantRadius = groupRadius,
         isLoading: Boolean = false,
+        isPending: Boolean = isLoading,
+        showDefaultSpinner: Boolean = true,
         isDisabled: Boolean = groupDisabled,
         isIconOnly: Boolean = false,
         fullWidth: Boolean = false,
@@ -64,6 +66,8 @@ class ButtonGroupScope internal constructor(
             size = size,
             radius = radius,
             isLoading = isLoading,
+            isPending = isPending,
+            showDefaultSpinner = showDefaultSpinner,
             isDisabled = isDisabled,
             isIconOnly = isIconOnly,
             fullWidth = fullWidth,
@@ -79,10 +83,10 @@ class ButtonGroupScope internal constructor(
 @Composable
 fun ButtonGroup(
     modifier: Modifier = Modifier,
-    variant: ButtonVariant = ButtonVariant.Solid,
-    color: ValiantColorRole = ValiantColorRole.Primary,
+    variant: ButtonVariant = ButtonVariant.Primary,
+    color: ValiantColorRole? = null,
     size: ButtonSize = ButtonSize.Md,
-    radius: ValiantRadius = size.defaultRadius,
+    radius: ValiantRadius = ValiantRadius.Full,
     isDisabled: Boolean = false,
     content: @Composable ButtonGroupScope.() -> Unit
 ) {

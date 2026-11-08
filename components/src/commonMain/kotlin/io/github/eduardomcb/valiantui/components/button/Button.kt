@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.github.eduardomcb.valiantui.components.feedback.Spinner
@@ -46,13 +47,17 @@ import io.github.eduardomcb.valiantui.theme.ValiantColorRole
 import io.github.eduardomcb.valiantui.theme.ValiantRadius
 import io.github.eduardomcb.valiantui.theme.ValiantTheme
 
+/**
+ * Visual styling variants matching HeroUI v3 semantic hierarchy.
+ */
 enum class ButtonVariant {
-    Solid,
-    Flat,
-    Bordered,
-    Light,
+    Primary,
+    Secondary,
+    Tertiary,
+    Outline,
     Ghost,
-    Shadow
+    Danger,
+    DangerSoft
 }
 
 enum class ButtonSize(
@@ -68,7 +73,7 @@ enum class ButtonSize(
         minWidth = 64.dp,
         horizontalPadding = 12.dp,
         gap = 8.dp,
-        defaultRadius = ValiantRadius.Sm,
+        defaultRadius = ValiantRadius.Full,
         spinnerSize = SpinnerSize.Sm
     ),
     Md(
@@ -76,7 +81,7 @@ enum class ButtonSize(
         minWidth = 80.dp,
         horizontalPadding = 16.dp,
         gap = 8.dp,
-        defaultRadius = ValiantRadius.Md,
+        defaultRadius = ValiantRadius.Full,
         spinnerSize = SpinnerSize.Md
     ),
     Lg(
@@ -84,7 +89,7 @@ enum class ButtonSize(
         minWidth = 96.dp,
         horizontalPadding = 24.dp,
         gap = 12.dp,
-        defaultRadius = ValiantRadius.Lg,
+        defaultRadius = ValiantRadius.Full,
         spinnerSize = SpinnerSize.Lg
     )
 }
@@ -101,62 +106,84 @@ data class ButtonStyle(
 @Composable
 fun rememberButtonStyle(
     variant: ButtonVariant,
-    colorRole: ValiantColorRole,
-    isHovered: Boolean,
-    isPressed: Boolean
+    colorRole: ValiantColorRole? = null,
+    isHovered: Boolean = false,
+    isPressed: Boolean = false
 ): ButtonStyle {
     val themeColors = ValiantTheme.colors
-    val colorPair = themeColors.forRole(colorRole)
+    val resolvedRole = colorRole ?: when (variant) {
+        ButtonVariant.Primary -> ValiantColorRole.Primary
+        ButtonVariant.Secondary -> ValiantColorRole.Secondary
+        ButtonVariant.Tertiary -> ValiantColorRole.Default
+        ButtonVariant.Outline -> ValiantColorRole.Default
+        ButtonVariant.Ghost -> ValiantColorRole.Default
+        ButtonVariant.Danger, ButtonVariant.DangerSoft -> ValiantColorRole.Danger
+    }
+    val colorPair = themeColors.forRole(resolvedRole)
     val baseColor = colorPair.color
     val onBaseColor = colorPair.onColor
 
     return when (variant) {
-        ButtonVariant.Solid -> {
+        ButtonVariant.Primary -> {
             ButtonStyle(
                 backgroundColor = baseColor,
                 contentColor = onBaseColor
             )
         }
-        ButtonVariant.Flat -> {
-            val flatAlpha = if (colorRole == ValiantColorRole.Default) 0.40f else 0.20f
-            val contentColor = if (colorRole == ValiantColorRole.Default) themeColors.foreground else baseColor
+        ButtonVariant.Secondary -> {
+            if (colorRole != null) {
+                ButtonStyle(
+                    backgroundColor = themeColors.default.color,
+                    contentColor = baseColor
+                )
+            } else {
+                val textBlue = if (themeColors.isDark) Color(0xFF60A8FA) else themeColors.accent.color
+                ButtonStyle(
+                    backgroundColor = themeColors.default.color,
+                    contentColor = textBlue
+                )
+            }
+        }
+        ButtonVariant.Tertiary -> {
             ButtonStyle(
-                backgroundColor = baseColor.copy(alpha = flatAlpha),
-                contentColor = contentColor
+                backgroundColor = themeColors.default.color,
+                contentColor = themeColors.foreground
             )
         }
-        ButtonVariant.Bordered -> {
-            val contentColor = if (colorRole == ValiantColorRole.Default) themeColors.foreground else baseColor
-            ButtonStyle(
-                backgroundColor = Color.Transparent,
-                contentColor = contentColor,
-                borderStroke = BorderStroke(2.dp, baseColor)
-            )
-        }
-        ButtonVariant.Light -> {
-            val contentColor = if (colorRole == ValiantColorRole.Default) themeColors.foreground else baseColor
-            val bg = if (isHovered || isPressed) baseColor.copy(alpha = 0.15f) else Color.Transparent
+        ButtonVariant.Outline -> {
+            val borderColor = if (colorRole != null) baseColor else if (themeColors.isDark) Color(0xFF27272A) else themeColors.border
+            val contentColor = if (colorRole != null) baseColor else themeColors.foreground
+            val bg = if (isHovered || isPressed) {
+                if (colorRole != null) baseColor.copy(alpha = 0.10f) else themeColors.default.color.copy(alpha = 0.50f)
+            } else Color.Transparent
             ButtonStyle(
                 backgroundColor = bg,
-                contentColor = contentColor
+                contentColor = contentColor,
+                borderStroke = BorderStroke(1.dp, borderColor)
             )
         }
         ButtonVariant.Ghost -> {
-            val isActive = isHovered || isPressed
-            val bg = if (isActive) baseColor else Color.Transparent
-            val contentColor = if (isActive) onBaseColor else baseColor
+            val contentColor = if (colorRole != null) baseColor else themeColors.foreground
+            val bg = if (isHovered || isPressed) {
+                if (colorRole != null) baseColor.copy(alpha = 0.15f) else themeColors.default.color.copy(alpha = 0.50f)
+            } else Color.Transparent
             ButtonStyle(
                 backgroundColor = bg,
-                contentColor = contentColor,
-                borderStroke = BorderStroke(2.dp, baseColor)
+                contentColor = contentColor
             )
         }
-        ButtonVariant.Shadow -> {
+        ButtonVariant.Danger -> {
             ButtonStyle(
-                backgroundColor = baseColor,
-                contentColor = onBaseColor,
-                shadowElevation = 8.dp,
-                shadowColor = baseColor.copy(alpha = 0.40f)
+                backgroundColor = themeColors.danger.color,
+                contentColor = themeColors.danger.onColor
+            )
+        }
+        ButtonVariant.DangerSoft -> {
+            val bg = if (themeColors.isDark) Color(0xFF260E0F) else Color(0xFFFEECEE)
+            val fg = if (themeColors.isDark) Color(0xFFEB7872) else themeColors.danger.color
+            ButtonStyle(
+                backgroundColor = bg,
+                contentColor = fg
             )
         }
     }
@@ -166,11 +193,13 @@ fun rememberButtonStyle(
 fun Button(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    variant: ButtonVariant = ButtonVariant.Solid,
-    color: ValiantColorRole = ValiantColorRole.Primary,
+    variant: ButtonVariant = ButtonVariant.Primary,
+    color: ValiantColorRole? = null,
     size: ButtonSize = ButtonSize.Md,
-    radius: ValiantRadius = size.defaultRadius,
+    radius: ValiantRadius = ValiantRadius.Full,
     isLoading: Boolean = false,
+    isPending: Boolean = isLoading,
+    showDefaultSpinner: Boolean = true,
     isDisabled: Boolean = false,
     isIconOnly: Boolean = false,
     fullWidth: Boolean = false,
@@ -203,12 +232,13 @@ fun Button(
     )
 
     val textStyle = when (size) {
-        ButtonSize.Sm -> ValiantTheme.typography.tiny
-        ButtonSize.Md -> ValiantTheme.typography.small
-        ButtonSize.Lg -> ValiantTheme.typography.medium
+        ButtonSize.Sm -> ValiantTheme.typography.tiny.copy(fontWeight = FontWeight.Medium)
+        ButtonSize.Md -> ValiantTheme.typography.small.copy(fontWeight = FontWeight.Medium)
+        ButtonSize.Lg -> ValiantTheme.typography.medium.copy(fontWeight = FontWeight.Medium)
     }
 
-    val isClickable = !isDisabled && !isLoading
+    val pending = isLoading || isPending
+    val isClickable = !isDisabled && !pending
 
     val baseModifier = modifier
         .semantics { role = Role.Button }
@@ -253,7 +283,7 @@ fun Button(
             enabled = isClickable,
             onClick = onClick
         )
-        .alpha(if (isDisabled) 0.5f else 1f)
+        .alpha(if (isDisabled || pending) 0.5f else 1f)
 
     val horizontalPadding = if (isIconOnly) 0.dp else size.horizontalPadding
 
@@ -272,7 +302,7 @@ fun Button(
                 ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                if (isLoading) {
+                if (pending && showDefaultSpinner) {
                     Spinner(
                         size = size.spinnerSize,
                         color = animatedContentColor
@@ -283,7 +313,7 @@ fun Button(
 
                 content()
 
-                if (!isLoading && endContent != null) {
+                if (!pending && endContent != null) {
                     endContent()
                 }
             }

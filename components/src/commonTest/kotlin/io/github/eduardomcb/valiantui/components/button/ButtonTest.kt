@@ -180,4 +180,34 @@ class ButtonTest {
             .assertWidthIsEqualTo(size.height)
             .assertHeightIsEqualTo(size.height)
     }
+
+    @Test
+    fun button_defaultRadius_isFullAcrossAllSizes() {
+        kotlin.test.assertEquals(io.github.eduardomcb.valiantui.theme.ValiantRadius.Full, ButtonSize.Sm.defaultRadius)
+        kotlin.test.assertEquals(io.github.eduardomcb.valiantui.theme.ValiantRadius.Full, ButtonSize.Md.defaultRadius)
+        kotlin.test.assertEquals(io.github.eduardomcb.valiantui.theme.ValiantRadius.Full, ButtonSize.Lg.defaultRadius)
+    }
+
+    @Test
+    fun button_herouiVariants_renderSuccessfully() = runComposeUiTest {
+        setContent {
+            ValiantTheme {
+                Button(onClick = {}) { Text("Primary") }
+                Button(onClick = {}, variant = ButtonVariant.Secondary) { Text("Secondary") }
+                Button(onClick = {}, variant = ButtonVariant.Tertiary) { Text("Tertiary") }
+                Button(onClick = {}, variant = ButtonVariant.Outline) { Text("Outline") }
+                Button(onClick = {}, variant = ButtonVariant.Ghost) { Text("Ghost") }
+                Button(onClick = {}, variant = ButtonVariant.Danger) { Text("Danger") }
+                Button(onClick = {}, variant = ButtonVariant.DangerSoft) { Text("Danger Soft") }
+            }
+        }
+
+        onNodeWithText("Primary").assertIsDisplayed()
+        onNodeWithText("Secondary").assertIsDisplayed()
+        onNodeWithText("Tertiary").assertIsDisplayed()
+        onNodeWithText("Outline").assertIsDisplayed()
+        onNodeWithText("Ghost").assertIsDisplayed()
+        onNodeWithText("Danger").assertIsDisplayed()
+        onNodeWithText("Danger Soft").assertIsDisplayed()
+    }
 }
