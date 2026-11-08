@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 440" width="1280" height="440" role="img" aria-labelledby="banner-dark-title">
+  <title id="banner-dark-title">ValiantUI Compose Banner (Dark)</title>
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#08080B" />
+      <stop offset="50%" stop-color="#0F1015" />
+      <stop offset="100%" stop-color="#060608" />
+    </linearGradient>
+    <radialGradient id="glow-azure" cx="50%" cy="35%" r="45%">
+      <stop offset="0%" stop-color="#0485F7" stop-opacity="0.22" />
+      <stop offset="60%" stop-color="#0485F7" stop-opacity="0.04" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow-purple" cx="65%" cy="40%" r="35%">
+      <stop offset="0%" stop-color="#7828C8" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="symbol-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="60%" stop-color="#0485F7" />
+      <stop offset="100%" stop-color="#006FEE" />
+    </linearGradient>
+    <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0485F7" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1280" height="440" rx="16" fill="url(#bg-grad)" />
+  <rect width="1280" height="440" rx="16" fill="url(#glow-azure)" />
+  <rect width="1280" height="440" rx="16" fill="url(#glow-purple)" />
+  <rect width="1280" height="440" rx="16" fill="none" stroke="#27272A" stroke-width="1.5" />
+
+  <!-- Centered Lockup Group -->
+  <g transform="translate(180, 110)">
+    <!-- Symbol -->
+    <g transform="translate(0, 0) scale(0.85)" filter="url(#subtle-shadow)">
+      <path fill="url(#symbol-grad)" d="M 68 44 L 96 44 L 128 163 L 160 44 L 188 44 L 212 68 L 128 213 L 44 68 Z" />
+      <path fill="#FCFCFC" d="M 128 50 L 136 80 L 128 110 L 120 80 Z" />
+    </g>
+
+    <!-- Typography -->
+    <g transform="translate(230, 20)">
+      <text x="0" y="96" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="92" font-weight="800" letter-spacing="-1.5" fill="#FCFCFC">Valiant<tspan fill="#0485F7">UI</tspan></text>
+      <text x="6" y="140" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="600" letter-spacing="8" fill="#A1A1AA">COMPOSE MULTIPLATFORM</text>
+    </g>
+  </g>
+
+  <!-- Subtitle and Badges -->
+  <text x="640" y="348" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="400" fill="#9CA3AF">A modern UI design system and component library inspired by HeroUI</text>
+
+  <!-- Platform Pills -->
+  <g transform="translate(420, 376)">
+    <rect x="0" y="0" width="80" height="28" rx="14" fill="#18181B" stroke="#27272A" />
+    <text x="40" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#E4E4E7">Android</text>
+
+    <rect x="92" y="0" width="60" height="28" rx="14" fill="#18181B" stroke="#27272A" />
+    <text x="122" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#E4E4E7">iOS</text>
+
+    <rect x="164" y="0" width="84" height="28" rx="14" fill="#18181B" stroke="#27272A" />
+    <text x="206" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#E4E4E7">Desktop</text>
+
+    <rect x="260" y="0" width="94" height="28" rx="14" fill="#18181B" stroke="#27272A" />
+    <text x="307" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#E4E4E7">Web Wasm</text>
+
+    <rect x="366" y="0" width="76" height="28" rx="14" fill="#7828C8" fill-opacity="0.25" stroke="#7828C8" />
+    <text x="404" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#C084FC">Kotlin</text>
+  </g>
+</svg>
