@@ -77,7 +77,7 @@ val SeparatorEntry = ComponentEntry(
                     Text("Continuar com Google")
                 }
                 Separator(text = "OU", variant = SeparatorVariant.Secondary)
-                Button(onClick = {}, variant = ButtonVariant.Bordered, color = ValiantColorRole.Default, fullWidth = true) {
+                Button(onClick = {}, variant = ButtonVariant.Outline, color = ValiantColorRole.Default, fullWidth = true) {
                     Text("Continuar com E-mail")
                 }
             }

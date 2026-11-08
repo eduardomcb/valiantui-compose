@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -21,26 +23,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import io.github.eduardomcb.valiantui.catalog.icons.AppleIcon
+import io.github.eduardomcb.valiantui.catalog.icons.EllipsisIcon
+import io.github.eduardomcb.valiantui.catalog.icons.EnvelopeIcon
+import io.github.eduardomcb.valiantui.catalog.icons.GearIcon
+import io.github.eduardomcb.valiantui.catalog.icons.GithubIcon
+import io.github.eduardomcb.valiantui.catalog.icons.GlobeIcon
+import io.github.eduardomcb.valiantui.catalog.icons.GoogleIcon
+import io.github.eduardomcb.valiantui.catalog.icons.PaperclipIcon
+import io.github.eduardomcb.valiantui.catalog.icons.PlusIcon
+import io.github.eduardomcb.valiantui.catalog.icons.TrashBinIcon
 import io.github.eduardomcb.valiantui.components.button.Button
 import io.github.eduardomcb.valiantui.components.button.ButtonGroup
 import io.github.eduardomcb.valiantui.components.button.ButtonGroupPosition
 import io.github.eduardomcb.valiantui.components.button.ButtonSize
 import io.github.eduardomcb.valiantui.components.button.ButtonVariant
+import io.github.eduardomcb.valiantui.components.feedback.Spinner
+import io.github.eduardomcb.valiantui.components.feedback.SpinnerColor
+import io.github.eduardomcb.valiantui.components.feedback.SpinnerSize
 import io.github.eduardomcb.valiantui.components.separator.Separator
 import io.github.eduardomcb.valiantui.components.separator.SeparatorOrientation
 import io.github.eduardomcb.valiantui.components.separator.SeparatorVariant
-import io.github.eduardomcb.valiantui.theme.ValiantColorRole
 import io.github.eduardomcb.valiantui.theme.ValiantRadius
 import io.github.eduardomcb.valiantui.theme.ValiantTheme
 import io.github.eduardomcb.valiantui.theme.darkValiantColors
 import io.github.eduardomcb.valiantui.theme.lightValiantColors
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun App() {
@@ -50,9 +67,7 @@ fun App() {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CatalogApp() {
-    var isDark by remember { mutableStateOf(false) }
-    var selectedInteractiveVariant by remember { mutableStateOf(ButtonVariant.Solid) }
-    var isLoadingDemo by remember { mutableStateOf(false) }
+    var isDark by remember { mutableStateOf(true) }
 
     val colors = if (isDark) darkValiantColors() else lightValiantColors()
 
@@ -76,7 +91,7 @@ fun CatalogApp() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp),
+                    .padding(bottom = 28.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -87,7 +102,7 @@ fun CatalogApp() {
                         color = animatedFg
                     )
                     Text(
-                        text = "Modern design system for Kotlin Multiplatform",
+                        text = "Modern design system for Kotlin Multiplatform matching HeroUI",
                         style = ValiantTheme.typography.small,
                         color = animatedFg.copy(alpha = 0.65f)
                     )
@@ -95,221 +110,364 @@ fun CatalogApp() {
 
                 Button(
                     onClick = { isDark = !isDark },
-                    variant = ButtonVariant.Flat,
-                    color = ValiantColorRole.Default,
-                    size = ButtonSize.Sm,
-                    radius = ValiantRadius.Full
+                    variant = ButtonVariant.Secondary,
+                    size = ButtonSize.Sm
                 ) {
                     Text(if (isDark) "Light Mode" else "Dark Mode")
                 }
             }
 
-            CatalogSection(title = "Button Variants") {
+            // 1. Button básico
+            CatalogSection(title = "Button básico") {
+                Button(
+                    onClick = { println("Button pressed") }
+                ) {
+                    Text("Click me")
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // 2. Variants
+            CatalogSection(title = "Variants") {
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    ButtonVariant.entries.forEach { variant ->
-                        Button(
-                            onClick = {},
-                            variant = variant,
-                            color = ValiantColorRole.Primary
-                        ) {
-                            Text(variant.name)
-                        }
+                    Button(onClick = {}) {
+                        Text("Primary")
+                    }
+                    Button(onClick = {}, variant = ButtonVariant.Secondary) {
+                        Text("Secondary")
+                    }
+                    Button(onClick = {}, variant = ButtonVariant.Tertiary) {
+                        Text("Tertiary")
+                    }
+                    Button(onClick = {}, variant = ButtonVariant.Outline) {
+                        Text("Outline")
+                    }
+                    Button(onClick = {}, variant = ButtonVariant.Ghost) {
+                        Text("Ghost")
+                    }
+                    Button(onClick = {}, variant = ButtonVariant.Danger) {
+                        Text("Danger")
+                    }
+                    Button(onClick = {}, variant = ButtonVariant.DangerSoft) {
+                        Text("Danger Soft")
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(28.dp))
 
-            CatalogSection(title = "Button Colors") {
-                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        ButtonVariant.entries.forEach { variant ->
-                            Button(
-                                onClick = { selectedInteractiveVariant = variant },
-                                variant = if (selectedInteractiveVariant == variant) ButtonVariant.Solid else ButtonVariant.Light,
-                                color = if (selectedInteractiveVariant == variant) ValiantColorRole.Primary else ValiantColorRole.Default,
-                                size = ButtonSize.Sm
-                            ) {
-                                Text(variant.name)
-                            }
-                        }
+            // 3. Sizes
+            CatalogSection(title = "Sizes") {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Button(onClick = {}, size = ButtonSize.Sm) {
+                        Text("Small")
                     }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        ValiantColorRole.entries.forEach { role ->
-                            Button(
-                                onClick = {},
-                                variant = selectedInteractiveVariant,
-                                color = role
-                            ) {
-                                Text(role.name)
-                            }
-                        }
+                    Button(onClick = {}, size = ButtonSize.Md) {
+                        Text("Medium")
+                    }
+                    Button(onClick = {}, size = ButtonSize.Lg) {
+                        Text("Large")
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(28.dp))
 
-            CatalogSection(title = "Sizes & Radius") {
-                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            // 4. With Icons
+            CatalogSection(title = "With Icons") {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Button(onClick = {}) {
+                        GlobeIcon()
+                        Text("Search")
+                    }
+                    Button(onClick = {}, variant = ButtonVariant.Secondary) {
+                        PlusIcon()
+                        Text("Add Member")
+                    }
+                    Button(onClick = {}, variant = ButtonVariant.Tertiary) {
+                        EnvelopeIcon()
+                        Text("Email")
+                    }
+                    Button(onClick = {}, variant = ButtonVariant.Danger) {
+                        TrashBinIcon()
+                        Text("Delete")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // 5. Icon Only
+            CatalogSection(title = "Icon Only") {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Button(
+                        onClick = {},
+                        isIconOnly = true,
+                        variant = ButtonVariant.Tertiary
+                    ) {
+                        EllipsisIcon()
+                    }
+                    Button(
+                        onClick = {},
+                        isIconOnly = true,
+                        variant = ButtonVariant.Secondary
+                    ) {
+                        GearIcon()
+                    }
+                    Button(
+                        onClick = {},
+                        isIconOnly = true,
+                        variant = ButtonVariant.Danger
+                    ) {
+                        TrashBinIcon()
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // 6. Loading
+            CatalogSection(title = "Loading") {
+                Button(
+                    onClick = {},
+                    isPending = true,
+                    showDefaultSpinner = false
+                ) {
+                    Spinner(color = SpinnerColor.Current, size = SpinnerSize.Sm)
+                    Text("Uploading...")
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // 7. Loading State
+            CatalogSection(title = "Loading State") {
+                var isLoading by remember { mutableStateOf(false) }
+                val coroutineScope = rememberCoroutineScope()
+
+                Button(
+                    onClick = {
+                        if (!isLoading) {
+                            isLoading = true
+                            coroutineScope.launch {
+                                delay(2000)
+                                isLoading = false
+                            }
+                        }
+                    },
+                    isPending = isLoading,
+                    showDefaultSpinner = false
+                ) {
+                    if (isLoading) {
+                        Spinner(color = SpinnerColor.Current, size = SpinnerSize.Sm)
+                        Text("Uploading...")
+                    } else {
+                        PaperclipIcon()
+                        Text("Upload File")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // 8. Full Width
+            CatalogSection(title = "Full Width") {
+                Column(
+                    modifier = Modifier.width(400.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Button(
+                        onClick = {},
+                        fullWidth = true
+                    ) {
+                        Text("Primary Button")
+                    }
+                    Button(
+                        onClick = {},
+                        fullWidth = true
+                    ) {
+                        PlusIcon()
+                        Text("With Icon")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // 9. Disabled State
+            CatalogSection(title = "Disabled State") {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Button(onClick = {}, isDisabled = true) {
+                        Text("Primary")
+                    }
+                    Button(onClick = {}, isDisabled = true, variant = ButtonVariant.Secondary) {
+                        Text("Secondary")
+                    }
+                    Button(onClick = {}, isDisabled = true, variant = ButtonVariant.Tertiary) {
+                        Text("Tertiary")
+                    }
+                    Button(onClick = {}, isDisabled = true, variant = ButtonVariant.Outline) {
+                        Text("Outline")
+                    }
+                    Button(onClick = {}, isDisabled = true, variant = ButtonVariant.Ghost) {
+                        Text("Ghost")
+                    }
+                    Button(onClick = {}, isDisabled = true, variant = ButtonVariant.Danger) {
+                        Text("Danger")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // 10. Social Buttons
+            CatalogSection(title = "Social Buttons") {
+                Column(
+                    modifier = Modifier.width(320.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Button(
+                        onClick = {},
+                        fullWidth = true,
+                        variant = ButtonVariant.Tertiary
+                    ) {
+                        GoogleIcon()
+                        Text("Sign in with Google")
+                    }
+                    Button(
+                        onClick = {},
+                        fullWidth = true,
+                        variant = ButtonVariant.Tertiary
+                    ) {
+                        GithubIcon()
+                        Text("Sign in with GitHub")
+                    }
+                    Button(
+                        onClick = {},
+                        fullWidth = true,
+                        variant = ButtonVariant.Tertiary
+                    ) {
+                        AppleIcon()
+                        Text("Sign in with Apple")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // 11. Spinner
+            CatalogSection(title = "Spinner") {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
                     Text(
-                        text = "Sizes (Sm: 32dp, Md: 40dp, Lg: 48dp)",
-                        style = ValiantTheme.typography.small.copy(fontWeight = FontWeight.SemiBold),
-                        color = animatedFg
+                        text = "Colors (Current, Accent, Success, Warning, Danger):",
+                        style = ValiantTheme.typography.tiny,
+                        color = animatedFg.copy(alpha = 0.6f)
                     )
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(24.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ButtonSize.entries.forEach { size ->
-                            Button(
-                                onClick = {},
-                                size = size,
-                                color = ValiantColorRole.Primary
-                            ) {
-                                Text(size.name)
-                            }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(color = SpinnerColor.Accent)
+                            Text("Accent", style = ValiantTheme.typography.tiny, color = colors.muted)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(color = SpinnerColor.Success)
+                            Text("Success", style = ValiantTheme.typography.tiny, color = colors.muted)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(color = SpinnerColor.Warning)
+                            Text("Warning", style = ValiantTheme.typography.tiny, color = colors.muted)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(color = SpinnerColor.Danger)
+                            Text("Danger", style = ValiantTheme.typography.tiny, color = colors.muted)
                         }
                     }
 
                     Text(
-                        text = "Radius tokens (None, Sm, Md, Lg, Full)",
-                        style = ValiantTheme.typography.small.copy(fontWeight = FontWeight.SemiBold),
-                        color = animatedFg
-                    )
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        ValiantRadius.entries.forEach { radius ->
-                            Button(
-                                onClick = {},
-                                radius = radius,
-                                variant = ButtonVariant.Flat,
-                                color = ValiantColorRole.Secondary
-                            ) {
-                                Text(radius.name)
-                            }
-                        }
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            CatalogSection(title = "States & Micro-interactions (Press Scaling, Loading, Disabled)") {
-                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(
-                        text = "Try clicking any button to feel the signature 0.97 spring press scale",
+                        text = "Sizes (Sm: 16dp, Md: 24dp, Lg: 32dp, Xl: 40dp):",
                         style = ValiantTheme.typography.tiny,
                         color = animatedFg.copy(alpha = 0.6f)
                     )
-
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(24.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Button(
-                            onClick = { isLoadingDemo = !isLoadingDemo },
-                            variant = ButtonVariant.Flat,
-                            color = ValiantColorRole.Success
-                        ) {
-                            Text(if (isLoadingDemo) "Stop Loading" else "Toggle Loading")
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(size = SpinnerSize.Sm)
+                            Text("Small", style = ValiantTheme.typography.tiny, color = colors.muted)
                         }
-
-                        Button(
-                            onClick = {},
-                            isLoading = isLoadingDemo,
-                            color = ValiantColorRole.Primary
-                        ) {
-                            Text("Loading State")
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(size = SpinnerSize.Md)
+                            Text("Medium", style = ValiantTheme.typography.tiny, color = colors.muted)
                         }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(size = SpinnerSize.Lg)
+                            Text("Large", style = ValiantTheme.typography.tiny, color = colors.muted)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(size = SpinnerSize.Xl)
+                            Text("Extra Large", style = ValiantTheme.typography.tiny, color = colors.muted)
+                        }
+                    }
 
-                        Button(
-                            onClick = {},
-                            isDisabled = true,
-                            color = ValiantColorRole.Danger
-                        ) {
-                            Text("Disabled")
+                    Text(
+                        text = "Speed (Slow: 1.5s, Default: 0.8s, Fast: 0.4s):",
+                        style = ValiantTheme.typography.tiny,
+                        color = animatedFg.copy(alpha = 0.6f)
+                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(24.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(durationMillis = 1500)
+                            Text("Slow", style = ValiantTheme.typography.tiny, color = colors.muted)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(durationMillis = 800)
+                            Text("Default", style = ValiantTheme.typography.tiny, color = colors.muted)
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Spinner(durationMillis = 400)
+                            Text("Fast", style = ValiantTheme.typography.tiny, color = colors.muted)
                         }
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(28.dp))
 
-            CatalogSection(title = "Slots & Icons") {
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Button(
-                        onClick = {},
-                        color = ValiantColorRole.Success,
-                        startContent = {
-                            Text("✓", fontWeight = FontWeight.Bold)
-                        }
-                    ) {
-                        Text("Success Action")
-                    }
-
-                    Button(
-                        onClick = {},
-                        variant = ButtonVariant.Bordered,
-                        color = ValiantColorRole.Warning,
-                        endContent = {
-                            Text("→", fontWeight = FontWeight.Bold)
-                        }
-                    ) {
-                        Text("Next Step")
-                    }
-
-                    Button(
-                        onClick = {},
-                        isIconOnly = true,
-                        radius = ValiantRadius.Full,
-                        color = ValiantColorRole.Secondary
-                    ) {
-                        Text("+", fontSize = 16.sp)
-                    }
-
-                    Button(
-                        onClick = {},
-                        isIconOnly = true,
-                        variant = ButtonVariant.Flat,
-                        color = ValiantColorRole.Default
-                    ) {
-                        Text("#", fontSize = 16.sp)
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
+            // 12. Button Group
             CatalogSection(title = "Button Group") {
-                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                    Text(
-                        text = "Connected buttons with shared styles and collapsed borders:",
-                        style = ValiantTheme.typography.tiny,
-                        color = animatedFg.copy(alpha = 0.6f)
-                    )
-
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
                     ButtonGroup(
-                        variant = ButtonVariant.Solid,
-                        color = ValiantColorRole.Primary,
-                        radius = ValiantRadius.Md
+                        variant = ButtonVariant.Primary,
+                        radius = ValiantRadius.Full
                     ) {
                         Button(onClick = {}, position = ButtonGroupPosition.First) {
                             Text("Years")
@@ -323,8 +481,7 @@ fun CatalogApp() {
                     }
 
                     ButtonGroup(
-                        variant = ButtonVariant.Flat,
-                        color = ValiantColorRole.Secondary,
+                        variant = ButtonVariant.Secondary,
                         radius = ValiantRadius.Full
                     ) {
                         Button(onClick = {}, position = ButtonGroupPosition.First) {
@@ -340,10 +497,14 @@ fun CatalogApp() {
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(28.dp))
 
-            CatalogSection("Separator") {
-                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            // 13. Separator
+            CatalogSection(title = "Separator") {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
                     Text(
                         text = "Horizontal Variants (Default, Secondary, Tertiary):",
                         style = ValiantTheme.typography.tiny,
@@ -389,41 +550,6 @@ fun CatalogApp() {
                         Separator(orientation = SeparatorOrientation.Vertical)
                         Text("GitHub", style = ValiantTheme.typography.small)
                     }
-
-                    Text(
-                        text = "With Centered Label (e.g. Auth divider):",
-                        style = ValiantTheme.typography.tiny,
-                        color = animatedFg.copy(alpha = 0.6f)
-                    )
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(colors.content2)
-                            .padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Button(
-                            onClick = {},
-                            variant = ButtonVariant.Flat,
-                            color = ValiantColorRole.Primary,
-                            fullWidth = true
-                        ) {
-                            Text("Continue with Google")
-                        }
-
-                        Separator(text = "OR", variant = SeparatorVariant.Secondary)
-
-                        Button(
-                            onClick = {},
-                            variant = ButtonVariant.Bordered,
-                            color = ValiantColorRole.Default,
-                            fullWidth = true
-                        ) {
-                            Text("Continue with Email")
-                        }
-                    }
                 }
             }
         }
@@ -438,19 +564,24 @@ private fun CatalogSection(
     val colors = ValiantTheme.colors
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(colors.content1)
-            .border(1.dp, colors.divider, RoundedCornerShape(16.dp))
-            .padding(20.dp)
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
             text = title,
-            style = ValiantTheme.typography.h3,
-            color = colors.foreground,
-            modifier = Modifier.padding(bottom = 16.dp)
+            style = ValiantTheme.typography.h3.copy(fontWeight = FontWeight.SemiBold),
+            color = colors.foreground
         )
-        content()
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(16.dp))
+                .background(if (colors.isDark) Color(0xFF060607) else colors.surface)
+                .border(1.dp, colors.border, RoundedCornerShape(16.dp))
+                .padding(horizontal = 24.dp, vertical = 36.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            content()
+        }
     }
 }

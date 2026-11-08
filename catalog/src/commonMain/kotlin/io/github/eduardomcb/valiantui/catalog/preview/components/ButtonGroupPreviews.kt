@@ -24,7 +24,7 @@ val ButtonGroupEntry = ComponentEntry(
             title = "Default"
         ) {
             ButtonGroup(
-                variant = ButtonVariant.Solid,
+                variant = ButtonVariant.Primary,
                 color = ValiantColorRole.Primary,
                 radius = ValiantRadius.Md
             ) {
@@ -47,7 +47,7 @@ val ButtonGroupEntry = ComponentEntry(
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 ButtonGroup(
-                    variant = ButtonVariant.Flat,
+                    variant = ButtonVariant.Secondary,
                     color = ValiantColorRole.Secondary,
                     radius = ValiantRadius.Full
                 ) {
@@ -63,7 +63,7 @@ val ButtonGroupEntry = ComponentEntry(
                 }
 
                 ButtonGroup(
-                    variant = ButtonVariant.Bordered,
+                    variant = ButtonVariant.Outline,
                     color = ValiantColorRole.Default,
                     radius = ValiantRadius.Md
                 ) {
